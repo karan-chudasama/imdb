@@ -3,7 +3,7 @@ from functools import wraps
 from bson import json_util
 from bson.objectid import ObjectId
 from sanic import Sanic, response, exceptions
-from settings import DATABASE, SECRET_AUTH_KEY
+from settings import DATABASE
 from sanic.log import logger
 
 
@@ -23,7 +23,7 @@ def init(app, loop):
 def _is_authenticated(request):
     token = request.headers.get("Auth-token", None) or request.token
     logger.info(f"user token is {token}")
-    return token == os.environ.get("SECRET_AUTH_KEY") or SECRET_AUTH_KEY
+    return token == os.environ.get("SECRET_AUTH_KEY")
 
 
 # Authecation decorator
