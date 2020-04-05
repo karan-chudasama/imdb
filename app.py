@@ -45,9 +45,9 @@ def get_object_id(id):
 @app.route('/', methods=['GET'])
 async def index(request):
     logger.info(f"starting API connecting to DB {db}")
-    # docs = await db.movies.find().to_list(None)
+    docs = await db.movies.find().to_list(None)
     logger.info(f"waiting for response")
-    return response.json({"success": "true", "message": "tessted"})
+    return response.json(docs, dumps=json_util.dumps)
 
 
 @app.route("/search/<movie_name>", methods=["GET"])
