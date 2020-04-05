@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 from bson import json_util
 from bson.objectid import ObjectId
@@ -15,14 +16,14 @@ def init(app, loop):
     global db
     from motor.motor_asyncio import AsyncIOMotorClient
     logger.info(f"Opening the database connection for {app.name}")
-    db = AsyncIOMotorClient(DATABASE["MONGO_DB_URL"])["imdbdata"]
+    db = AsyncIOMotorClient(os.environ.get("DATABASE_URL", DATABASE["MONGO_DB_URL"]))["imdbdata"]
 
 
 # Authentication Logic
 def _is_authenticated(request):
     token = request.headers.get("Auth-token", None) or request.token
     logger.info(f"user token is {token}")
-    return token == SECRET_AUTH_KEY
+    return token == os.environ.get("SECRET_AUTH_KEY") or SECRET_AUTH_KEY
 
 
 # Authecation decorator
@@ -117,4 +118,9 @@ async def remove_movie(request, movie_id):
 
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=8000, debug=True)
+    app.run(
+        host='localhost',
+        port=int(os.environ.get("PORT", 8000)),
+        workers=int(os.environ.get("WEB_WORKER", 1)),
+        debug=bool(os.environ.get("DEBUG", ""))
+    )
