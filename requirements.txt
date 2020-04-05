@@ -5,6 +5,7 @@ backcall==0.1.0
 certifi==2019.11.28
 chardet==3.0.4
 decorator==4.4.2
+dnspython==1.16.0
 gino==0.8.6
 h11==0.8.1
 h2==3.2.0
