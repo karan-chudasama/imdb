@@ -50,11 +50,13 @@ async def index(request):
     return response.json(docs, dumps=json_util.dumps)
 
 
-@app.route("/search/<movie_name>", methods=["GET"])
-async def search_movie(request, movie_name):
-    # Using collation for case insensitive search
-    movie = await db.movies.find({"name": movie_name}).collation({"locale": "en", "strength": 2}).to_list(None)
-    return response.json(movie, dumps=json_util.dumps)
+@app.route("/search", methods=["POST"])
+async def search_movie(request):
+    if request.method == "POST":
+        movie_name = request.json["name"]
+        # Searching text index for any word input instead of exact movie name
+        movie = await db.movies.find({"$text": {"$search": movie_name}}).to_list(None)
+        return response.json(movie, dumps=json_util.dumps)
 
 
 @app.route("/add", methods=["POST"])
