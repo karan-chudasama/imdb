@@ -103,24 +103,6 @@ async def remove_movie(request, movie_id):
     return response.json({"success": "true", "message": message})
 
 
-# @app.route("/register", methods=["POST"])
-# async def add_user(request):
-#     users = request.POST["users"]
-#     if isinstance(users, list):
-#         users = await db.users.insert_many(users)
-#     else:
-#         users = await db.users.insert_many([users])
-#     return response.json({"message": f"Created {len(users)} successfully!!!"})
-
-
-# @app.route('/post', methods=['POST'])
-# async def new(request):
-#     doc = request.json
-#     print(doc)
-#     object_id = await db.test_col.save(doc)
-#     return response.json({'object_id': str(object_id)})
-
-
 if __name__ == "__main__":
     app.run(
         host='0.0.0.0',
