@@ -1,6 +1,6 @@
 aiocontextvars==0.2.2
 aiofiles==0.4.0
-asyncpg==0.20.1
+asyncpg==0.21.0
 backcall==0.1.0
 certifi==2019.11.28
 chardet==3.0.4
