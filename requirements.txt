@@ -41,4 +41,4 @@ ujson==2.0.3
 user-agents==2.1
 uvloop==0.14.0
 wcwidth==0.1.9
-websockets==8.1
+websockets==9.1
